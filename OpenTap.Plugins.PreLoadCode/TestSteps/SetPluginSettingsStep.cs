@@ -16,14 +16,15 @@ namespace OpenTap.Plugins.PreLoadCode.TestSteps
         public bool ShouldLoadPlugin { get; set; } = true;
         #endregion
 
+        public SetPluginSettingsStep()
+        {
+            ShouldLoadPlugin = PluginSettings.CurrentSettings.ShouldLoadPlugin;
+        }
+
         public override void Run()
         {
-            PluginSettings settings = new()
-            {
-                ShouldLoadPlugin = ShouldLoadPlugin,
-            };
-
-            SettingsJson.SavePluginSettings(settings);
+            PluginSettings.CurrentSettings.ShouldLoadPlugin = ShouldLoadPlugin;
+            PluginSettings.SaveCurrentSettings();
         }
     }
 }

@@ -1,11 +1,14 @@
 using Xunit;
 using OpenTap.Plugins.PreLoadCode.Settings;
+using System.IO;
 
 namespace OpenTap.Plugins.PreLoadCode.Test
 {
     public class PluginSettingsTest
     {
         private readonly PluginSettings _pluginSettings;
+
+        private readonly string _pluginSettingsTestFileName = "pluginSettingsTestFile.json";
 
         public PluginSettingsTest()
         {
@@ -16,11 +19,12 @@ namespace OpenTap.Plugins.PreLoadCode.Test
         }
 
         [Fact]
-        public void PluginSettingsXmlSavesLoads()
+        public void PluginSettingsSavesLoads()
         {
-            SettingsJson.SavePluginSettings(_pluginSettings);
-            PluginSettings loadedSettings = SettingsJson.LoadPluginSettings();
+            PluginSettingsIO.SavePluginSettings(_pluginSettings, _pluginSettingsTestFileName);
+            PluginSettings loadedSettings = PluginSettingsIO.LoadPluginSettings(_pluginSettingsTestFileName);
             Assert.Equal(_pluginSettings.ShouldLoadPlugin, loadedSettings.ShouldLoadPlugin);
+            File.Delete(_pluginSettingsTestFileName);
         }
 
         [Fact]

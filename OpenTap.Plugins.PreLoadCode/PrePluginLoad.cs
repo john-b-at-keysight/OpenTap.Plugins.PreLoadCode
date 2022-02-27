@@ -9,7 +9,11 @@ namespace OpenTap.Plugins.PreLoadCode
     /// </summary>
     public static class PrePluginLoad
     {
-        private static string LogSourceName => "PreLoadCode";
+        internal static string LogSourceName => "PreLoadCode";
+
+        internal static string PreLoadMessage => "Running before plugin is loaded!";
+
+        internal static string PluginLoadExceptionMessage => "Set to not load plugin";
 
         private static TraceSource _logSource;
         private static TraceSource LogSource => _logSource ??= Log.CreateSource(LogSourceName);
@@ -20,11 +24,9 @@ namespace OpenTap.Plugins.PreLoadCode
         /// </summary>
         public static void RunBeforePluginLoad()
         {
-            Log.Info(LogSource, "Running before plugin is loaded!");
+            Log.Info(LogSource, PreLoadMessage);
             if (!PluginSettings.CurrentSettings.ShouldLoadPlugin)
-                throw new PrePluginLoadException("Set to not load plugin");
-            else
-                Log.Info(LogSource, "Set to load plugin");
+                throw new PrePluginLoadException(PluginLoadExceptionMessage);
         }
     }
 

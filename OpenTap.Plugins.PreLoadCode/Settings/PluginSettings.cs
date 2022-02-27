@@ -11,7 +11,7 @@
             {
                 try
                 {
-                    _currentSettings ??= SettingsJson.LoadPluginSettings();
+                    _currentSettings ??= PluginSettingsIO.LoadPluginSettings();
                 }
                 catch
                 {
@@ -23,7 +23,7 @@
 
         public static void SaveCurrentSettings()
         {
-            SettingsJson.SavePluginSettings(CurrentSettings);
+            PluginSettingsIO.SavePluginSettings(CurrentSettings);
         }
 
         public override bool Equals(object obj)
