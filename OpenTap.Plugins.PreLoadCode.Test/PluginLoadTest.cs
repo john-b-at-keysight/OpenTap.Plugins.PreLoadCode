@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using OpenTap.Plugins.PreLoadCode.TestSteps;
 using OpenTap.Diagnostic;
+using OpenTap.Plugins.PreLoadCode.Settings;
 
 namespace OpenTap.Plugins.PreLoadCode.Test
 {
@@ -14,6 +15,25 @@ namespace OpenTap.Plugins.PreLoadCode.Test
         {
             PluginManager.Search();
             Log.AddListener(_listener);
+        }
+
+        [Fact]
+        public void PreLoadCodeExceptionPreventsPluginLoad()
+        {
+            PluginSettings.CurrentSettings.ShouldLoadPlugin = false;
+            PluginSettings.SaveCurrentSettings();
+            TestPlan testPlan = new();
+            try
+            {
+                testPlan.ChildTestSteps.Add(new PostLoadStep());
+                testPlan.Execute();
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.ToString());
+                return;
+            }
+            throw new Exception("No exception thrown");
         }
 
         [Fact]
