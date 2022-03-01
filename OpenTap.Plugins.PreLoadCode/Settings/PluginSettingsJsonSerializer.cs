@@ -23,7 +23,7 @@ namespace OpenTap.Plugins.PreLoadCode.Settings
         {
             try
             {
-                string jsonText = JsonConvert.SerializeObject(settings);
+                string jsonText = JsonConvert.SerializeObject(settings, Formatting.Indented);
                 return jsonText;
             }
             catch (JsonSerializationException exc)

@@ -4,6 +4,7 @@ using Xunit;
 using OpenTap.Plugins.PreLoadCode.TestSteps;
 using OpenTap.Diagnostic;
 using OpenTap.Plugins.PreLoadCode.Settings;
+using OpenTap.Plugins.PreLoadCode.TapSettings;
 
 namespace OpenTap.Plugins.PreLoadCode.Test
 {
@@ -22,6 +23,8 @@ namespace OpenTap.Plugins.PreLoadCode.Test
         {
             PluginSettings.CurrentSettings.ShouldLoadPlugin = false;
             PluginSettings.SaveCurrentSettings();
+            Assert.Equal(PluginSettings.CurrentSettings.ShouldLoadPlugin,
+                PreLoadCodeTapSettings.Current.ShouldLoadPluginNextStart);
             TestPlan testPlan = new();
             try
             {

@@ -9,7 +9,7 @@ using OpenTap.Plugins.PreLoadCode.Settings;
 
 namespace OpenTap.Plugins.PreLoadCode.TestSteps
 {
-    [Display("SetPluginSettingsStep", Group: "OpenTap.Plugins.PreLoadCode", Description: "Insert a description here")]
+    [Display("Set Plugin Settings", Group: "OpenTap.Plugins.PreLoadCode", Description: "Set values for the settings for the PreLoadCode plugin")]
     public class SetPluginSettingsStep : TestStep
     {
         #region Settings
